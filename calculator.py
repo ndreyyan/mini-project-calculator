@@ -27,9 +27,9 @@ window.resizable(False,False)
 
 frame = tkinter.Frame(window)
 label = tkinter.Label(frame, text="0",font=("Arial",45), background=black_color,
-                      foreground=color_white)
+                      foreground=color_white, anchor='e')
 
-label.grid(row=0, column=0)
+label.grid(row=0, column=0, columnspan=column_len ,sticky="we")
 
 for row in range(row_len):
     for column in range(column_len):
@@ -38,6 +38,14 @@ for row in range(row_len):
                                 width=column_len-1, height=1,
                                 command=lambda value=value: button_clicked(value))
         button.grid(row=row+1, column=column)
+
+        if value in top_symbols:
+            button.config(foreground=black_color,background=color_white)
+        elif value in right_symbols:
+            button.config(foreground=color_white,background=orange_color)
+        else:
+            button.config(foreground=color_white,background=grey_color)
+        button.grid(row=row+1,column=column)
 
 frame.pack()
 
