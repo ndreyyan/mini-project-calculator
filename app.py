@@ -73,7 +73,31 @@ def button_clicked(value):
     global right_symbols, top_symbols, label, A, operator, B
 
     if value in right_symbols:
-        pass
+        if value == "=":
+            if A is not None and operator is not None:
+                B = label["text"]
+                numberA = float(A)
+                numberB = float(B)
+
+                if operator == "+":
+                    label["text"] = remove_float(numberA + numberB)
+                elif operator == "-":
+                    label["text"] = remove_float(numberA - numberB)
+                elif operator == "×":
+                    label["text"] = remove_float(numberA * numberB)
+                elif operator == "÷":
+                    label["text"] = remove_float(numberA / numberB)
+
+                all_clear()
+
+        elif value in "+-×÷":
+            if operator is None:
+                A = label["text"]
+                label["text"] = "0"
+                B = "0"
+            
+            operator = value
+            
     elif value in top_symbols:
         if value == "AC":
             all_clear()
@@ -84,10 +108,12 @@ def button_clicked(value):
         elif value == "%":
             result = float(label["text"]) / 100
             label["text"] = remove_float(result)
+    
     else:
         if value == ".":
             if value not in label["text"]:
                 label["text"] += value
+
         elif value in "0123456789":
             if label["text"] == "0":
                 label["text"] = value
